@@ -1,0 +1,5 @@
+numpy>=1.23
+matplotlib>=3.7
+PyYAML>=6.0
+PyQt5>=5.15,<6
+
