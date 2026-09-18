@@ -1,10 +1,8 @@
 # LIGO Quantum Tools
 
-A small collection of interactive visualization and figure-building tools developed for studying squeezed-light quantum noise in LIGO-like precision measurements.
+A collection of interactive visualization and figure-building tools developed while preparing the review article **_Quantum Noise Engineering in Advanced LIGO_**, currently in preparation for *Contemporary Physics*.
 
-Together, the tools follow the squeezed state from preparation at the input, through interferometer propagation, to practical degradation from loss and phase noise. Parameters can be changed interactively, intermediate quantities can be visualized, and publication-style figures can be generated directly from the same models used in the analysis.
-
-Each tool lives in its own directory and has a dedicated README describing its equations, assumptions, controls, and dependencies.
+Together, the tools follow squeezed-light quantum noise from state preparation, through interferometer propagation, to practical implementation limits from optical loss and phase noise. Each tool lives in its own directory and has a dedicated README describing its equations, assumptions, controls, and dependencies.
 
 ## Tools
 
@@ -14,7 +12,7 @@ Interactive GUI for visualizing the **input squeezed quantum state** before inte
 
 The tool compares vacuum, frequency-independent squeezing (FIS), and frequency-dependent squeezing (FDS) as quadrature covariance ellipses. It applies the selected squeezing level and angle, optional injection loss, and—in the FDS case—the frequency-dependent rotation produced by the filter-cavity model.
 
-The model is intentionally limited to preparation of the injected state. It does **not** include interferometer propagation, OMC/readout loss, phase noise, or spatial mode mismatch. This makes it useful for isolating the physics of squeezed-state preparation before introducing the detector response.
+This tool is intended to isolate the physics of squeezed-state preparation before the detector response is introduced.
 
 See [`squeezing-ellipse-visualizer/README.md`](squeezing-ellipse-visualizer/README.md) for the equations and assumptions used.
 
@@ -24,11 +22,11 @@ See [`squeezing-ellipse-visualizer/README.md`](squeezing-ellipse-visualizer/READ
 
 Interactive GUI for visualizing optical quadrature covariance ellipses before and after propagation through a GWINC interferometer model.
 
-The input state can be vacuum, frequency-independent squeezing (FIS), or frequency-dependent squeezing (FDS). The GUI can use the filter-cavity parameters from a GWINC YAML model to construct the input state, then propagate that state through the interferometer using GWINC's quantum-noise matrices.
+The input state can be vacuum, frequency-independent squeezing (FIS), or frequency-dependent squeezing (FDS). The GUI uses the selected GWINC YAML model to construct the interferometer response and can include optomechanical coupling, SEC detuning, internal optical loss, and spatial mode mismatch.
 
-The interface includes controls for squeezing and filter-cavity parameters, frequency selection, arm power and arm length, signal-extraction-cavity detuning, IFO–OMC / SQZ–OMC / IFO–SEC mode mismatch, plot layout, axis limits, labels, colors, legends, and exact-view figure export.
+The interface includes controls for squeezing and filter-cavity parameters, frequency selection, arm power and arm length, signal-extraction-cavity detuning, IFO–OMC / SQZ–OMC / IFO–SEC mode mismatch, figure layout, labels, colors, legends, and export.
 
-When spatial mode mismatch is enabled, the calculation uses GWINC's higher-order-mode representation and projects the propagated covariance back onto the detected fundamental mode using GWINC's local-oscillator vectors.
+When spatial mode mismatch is active, the calculation uses GWINC's higher-order-mode representation and projects the propagated covariance back onto the detected fundamental mode using GWINC's local-oscillator vectors.
 
 See [`output-qstate-ellipse-visualizer/README.md`](output-qstate-ellipse-visualizer/README.md) for the full model description.
 
@@ -38,13 +36,23 @@ See [`output-qstate-ellipse-visualizer/README.md`](output-qstate-ellipse-visuali
 
 Interactive GUI illustrating how optical loss and phase noise limit observed squeezing.
 
-The upper panels provide schematic quadrature-space views of vacuum admixture and readout-axis jitter. The lower panels calculate the measured variance as a function of nonlinear gain for selectable optical losses and phase-noise levels.
+The upper panels provide schematic quadrature-space views of vacuum admixture and readout-axis jitter. The lower panels calculate observed variance as a function of nonlinear gain for selectable optical losses and phase-noise levels.
 
-The model includes ideal OPO squeezing and anti-squeezing versus nonlinear gain, scalar optical loss modeled as vacuum admixture, Gaussian RMS phase noise, covariance-ellipse construction, independent legend and layout controls, and PDF/PNG/SVG export.
+The model includes ideal OPO squeezing and anti-squeezing versus nonlinear gain, scalar optical loss modeled as vacuum admixture, Gaussian RMS phase noise, covariance-ellipse construction, independent layout and legend controls, and PDF/PNG/SVG export.
 
 This tool is deliberately compact and does not include interferometer propagation or filter-cavity dynamics.
 
 See [`loss-phase-noise-visualizer/README.md`](loss-phase-noise-visualizer/README.md) for the equations and assumptions used.
+
+## Manuscript context and disclaimer
+
+These tools were developed while writing **_Quantum Noise Engineering in Advanced LIGO_**, prepared as a review article for *Contemporary Physics*.
+
+They were created to support the figures, explanations, and physical intuition developed in that manuscript. The individual GUIs are intended primarily as research and visualization tools rather than as general-purpose or officially supported LIGO software.
+
+The equations, assumptions, and approximations used by each tool are documented in its corresponding README. Where a tool interfaces with GWINC, its output also depends on the particular GWINC version and detector model used.
+
+The repository may continue to evolve while the review manuscript is in preparation.
 
 ## Repository layout
 
@@ -54,7 +62,7 @@ LIGO-quantum-tools/
 ├── squeezing-ellipse-visualizer/
 │   ├── README.md
 │   ├── squeezing_ellipse_visualizer.py
-│   └── assets/
+│   └── ...
 ├── output-qstate-ellipse-visualizer/
 │   ├── README.md
 │   ├── ifo_optical_quadratures.py
@@ -75,15 +83,9 @@ Dependencies are listed separately for each tool.
 
 The quadrature-propagation GUI requires a compatible GWINC installation because it uses internal functions from `gwinc.noise.quantum`.
 
-The loss/phase-noise GUI only requires the standard Python packages listed in its own `requirements.txt`.
+The other visualization tools use the standard Python packages listed in their own `requirements.txt` files.
 
-## Research context
-
-These tools were developed for a **Contemporary Physics review article currently in preparation** on squeezed-light quantum measurement in LIGO.
-
-The visualizations are intended to support an intuitive progression from the preparation of squeezed optical states, through their propagation in a realistic interferometer, to practical limitations from optical loss and phase noise.
-
-Related experimental work:
+## Related experimental work
 
 **B. Kabagöz et al., _Observing and Evading Quantum Back-Action on a Kilogram-Scale Oscillator_**
 
@@ -97,4 +99,4 @@ All scientific model choices, equations, parameter definitions, physical interpr
 
 ## Status
 
-These are research tools rather than a general-purpose software package. Interfaces and internal implementation may change as the associated analysis develops.
+These are research tools rather than a general-purpose software package. Interfaces and internal implementation may change as the associated review manuscript develops.
