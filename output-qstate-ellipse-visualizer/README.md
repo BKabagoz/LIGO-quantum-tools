@@ -230,7 +230,7 @@ The measured two-quadrature covariance is then
 ```math
 V_{\rm out}
 =
-\operatorname{Re}\left\{
+\mathrm{Re}\left\{
 \frac12\left[
 P S_{\rm out} P^\dagger
 +
