@@ -26,8 +26,11 @@ The input state can be vacuum, frequency-independent squeezing (FIS), or frequen
 ├── README.md
 ├── ifo_optical_quadratures.py
 ├── requirements.txt
+├── ui.png
 └── .gitignore
+```
 
+Detector YAML files are intentionally kept one directory upstream and are not part of this repository.
 
 ## Requirements
 
@@ -69,13 +72,14 @@ and select the YAML from the file picker.
 
 The base YAML can also be changed while the GUI is open.
 
-In the repository layout used here, detector YAML files are expected to live **one directory above** the GUI repository rather than being committed with this code. For example:
+
+A typical directory layout is:
 
 ```text
 parent-directory/
 ├── april9.yaml
-├── another_model.yaml
-└── ifo-optical-quadrature-ellipses/
+├── another_detector_model.yaml
+└── output-qstate-ellipse-visualizer/
     ├── README.md
     ├── ifo_optical_quadratures.py
     ├── requirements.txt
@@ -83,7 +87,13 @@ parent-directory/
     └── .gitignore
 ```
 
-The GUI does not require this exact layout—the YAML file picker can select a model from anywhere—but keeping detector-specific YAML files upstream keeps them out of the public repository.
+For that layout, launch with for example:
+
+```bash
+python ifo_optical_quadratures.py --yaml ../april9.yaml
+```
+
+The YAML file picker can also select a model from any location. Keeping detector-specific YAML files upstream simply keeps them outside this public repository.
 
 ### Parameter conventions
 
@@ -97,37 +107,34 @@ The GUI does not require this exact layout—the YAML file picker can select a m
 
 # How the ellipses are computed
 
-> **GitHub math rendering:** equations in this README use GitHub-compatible `$...$` inline math and `$$...$$` display math.
+> GitHub rendering note: display equations below use fenced `math` blocks rather than multiline `$$` delimiters. This prevents ordinary Markdown parsing (especially Setext-heading parsing of standalone `=` lines) from corrupting equations before GitHub renders the LaTeX.
 
 ## 1. Covariance convention
 
 Each ellipse represents a real, symmetrized two-quadrature covariance matrix
 
-$$
+```math
 V =
 \begin{pmatrix}
 \langle X_1^2\rangle & \tfrac12\langle X_1X_2+X_2X_1\rangle\\
 \tfrac12\langle X_1X_2+X_2X_1\rangle & \langle X_2^2\rangle
 \end{pmatrix}.
-$$
-
+```
 The normalization used by the GUI is
 
-$$
+```math
 V_{\rm vac}=I,
-$$
-
+```
 so an unsqueezed vacuum state is a unit circle.
 
 If
 
-$$
+```math
 V = Q\,\mathrm{diag}(\lambda_1,\lambda_2)\,Q^T,
-$$
-
+```
 the plotted contour is
 
-$$
+```math
 \mathbf{x}(t)
 =
 Q
@@ -140,37 +147,33 @@ Q
 \sin t
 \end{pmatrix},
 \qquad 0\le t<2\pi.
-$$
-
+```
 Thus the ellipse axes are the covariance eigenvectors and the semiaxis lengths are the square roots of the covariance eigenvalues. Equivalently, the plotted curve satisfies
 
-$$
+```math
 \mathbf{x}^T V^{-1}\mathbf{x}=1.
-$$
-
+```
 ## 2. Squeezed input state
 
 For a squeezing level of $s_{\rm dB}$, the code uses the vacuum-normalized principal variances
 
-$$
+```math
 v_- = 10^{-s_{\rm dB}/10},
 \qquad
 v_+ = 10^{+s_{\rm dB}/10}.
-$$
-
+```
 For squeeze angle $\alpha$, define
 
-$$
+```math
 R(\alpha)=
 \begin{pmatrix}
 \cos\alpha & -\sin\alpha\\
 \sin\alpha & \cos\alpha
 \end{pmatrix}.
-$$
-
+```
 The ideal squeezed-state covariance is
 
-$$
+```math
 V_{\rm sqz}
 =
 R(\alpha)
@@ -179,76 +182,67 @@ v_- & 0\\
 0 & v_+
 \end{pmatrix}
 R^T(\alpha).
-$$
-
+```
 If injection efficiency is $\eta$, the injected state is mixed with vacuum as
 
-$$
+```math
 V_{\rm in}
 =
 \eta V_{\rm sqz}+(1-\eta)I.
-$$
-
+```
 In the GUI, $\eta=1-L_{\rm inj}$ when injection loss is enabled.
 
 For FIS,
 
-$$
+```math
 \alpha(f)=\alpha_0+\Delta\alpha_{\rm FIS},
-$$
-
+```
 so the input ellipse is frequency independent.
 
 ## 3. Frequency-dependent squeezing and filter-cavity rotation
 
 For FDS, the input angle is
 
-$$
+```math
 \alpha(f)
 =
 \alpha_0+\theta_{\rm FC}(f)+\Delta\alpha_{\rm FDS}.
-$$
-
+```
 The input filter-cavity rotation is calculated directly from the complex cavity reflectivity. With input-coupler power transmission $T_i$, end transmission $T_e$, round-trip loss $L_{\rm rt}$, and cavity length $L$, the amplitude reflectivities used by the code are
 
-$$
+```math
 r_1=\sqrt{1-T_i},
 \qquad
 r_2=\sqrt{(1-T_e)(1-L_{\rm rt})}.
-$$
-
+```
 For frequency offset $\nu$,
 
-$$
+```math
 \phi(\nu)=2\pi\nu\frac{2L}{c},
 \qquad
 z=e^{i\phi},
-$$
-
+```
 and
 
-$$
+```math
 r_{\rm cav}(\nu)
 =
 \frac{r_1-r_2z}{1-r_1r_2z}.
-$$
-
+```
 Using the upper and lower audio sidebands around the filter-cavity detuning $f_{\rm det}$, the code evaluates
 
-$$
+```math
 r_+(f)=r_{\rm cav}(f_{\rm det}+f),
 \qquad
 r_-(f)=r_{\rm cav}(f_{\rm det}-f),
-$$
-
+```
 and uses the two-photon quadrature rotation
 
-$$
+```math
 \theta_{\rm FC}(f)
 =
 \frac12\left[\arg r_+(f)+\arg r_-(f)\right].
-$$
-
+```
 The phases are unwrapped numerically. The GUI can optionally subtract the high-frequency value, reverse the sign, or add a constant rotation offset.
 
 The filter-cavity expression above is used to construct the **input covariance ellipse**. The subsequent interferometer propagation is handled by GWINC.
@@ -259,16 +253,14 @@ At each plotted audio frequency, the selected YAML is loaded through the GWINC q
 
 GWINC supplies an optical transfer matrix
 
-$$
+```math
 H(f)
-$$
-
+```
 from the antisymmetric-port input field to the output, together with transfer matrices
 
-$$
+```math
 T_j(f)
-$$
-
+```
 for vacuum fields entering through internal loss ports.
 
 The interferometer matrix contains the optomechanical response, including radiation-pressure coupling through the test-mass susceptibility. In the full model it also contains SEC detuning, arm/SRC losses, Gouy phases, and the requested spatial mode mismatch.
@@ -277,27 +269,25 @@ When mode mismatch is active, GWINC promotes the optical basis from the two fund
 
 The GUI embeds the input two-quadrature covariance into this full basis as
 
-$$
+```math
 V_{\rm full,in}
 =
 \begin{pmatrix}
 V_{\rm in} & 0\\
 0 & I_{\rm HOM}
 \end{pmatrix}.
-$$
-
+```
 The higher-order-mode inputs are therefore taken to be vacuum.
 
 The propagated covariance before readout projection is
 
-$$
+```math
 S_{\rm out}(f)
 =
 H(f)V_{\rm full,in}(f)H^\dagger(f)
 +
 \sum_j T_j(f)T_j^\dagger(f).
-$$
-
+```
 The second term explicitly adds the vacuum fluctuations entering through the GWINC loss ports.
 
 ## 5. Fundamental-mode readout projection
@@ -306,25 +296,23 @@ A crucial detail is that, once mode mismatch is enabled, the detected fundamenta
 
 The GUI instead uses the same local-oscillator vectors generated by GWINC's active optical matrix library. Two orthogonal readout vectors are constructed,
 
-$$
+```math
 P=
 \begin{pmatrix}
 p_{X_1}\\
 p_{X_2}
 \end{pmatrix},
-$$
-
+```
 with
 
-$$
+```math
 p_{X_1}=\mathrm{adjoint}[\mathrm{LO}(0)],
 \qquad
 p_{X_2}=\mathrm{adjoint}[\mathrm{LO}(\pi/2)].
-$$
-
+```
 The measured two-quadrature covariance is then
 
-$$
+```math
 V_{\rm out}
 =
 \operatorname{Re}\left\{
@@ -334,8 +322,7 @@ P S_{\rm out} P^\dagger
 \left(P S_{\rm out}P^\dagger\right)^\dagger
 \right]
 \right\}.
-$$
-
+```
 This $2\times2$ matrix is what is converted to the output ellipse using the eigenvalue construction in Sec. 1.
 
 This projection is important for mode mismatch: spatial mismatch can move squeezed noise into higher-order modes and mix vacuum back into the detected fundamental mode even when the full optical transformation is lossless.
@@ -354,11 +341,10 @@ The GUI deliberately does **not** reproduce GWINC's mode-mismatch matrices by ha
 
 For diagnostics, the full-GWINC calculation can also be compared numerically with an otherwise identical model in which all three mismatch amplitudes are set to zero. The displayed relative covariance change is based on the Frobenius norm,
 
-$$
+```math
 \frac{\|V_{\rm out}-V_{\rm out}^{(0\,\mathrm{MM})}\|_F}
 {\|V_{\rm out}^{(0\,\mathrm{MM})}\|_F}.
-$$
-
+```
 ## 7. Ideal versus full IFO modes
 
 **Full GWINC IFO** uses the selected YAML plus the GUI overrides and includes the full modeled interferometer propagation described above.
