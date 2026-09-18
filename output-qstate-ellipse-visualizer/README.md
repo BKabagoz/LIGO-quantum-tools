@@ -22,8 +22,6 @@ The input state can be vacuum, frequency-independent squeezing (FIS), or frequen
 
 # How the ellipses are computed
 
-> GitHub rendering note: display equations below use fenced `math` blocks rather than multiline `$$` delimiters. This prevents ordinary Markdown parsing (especially Setext-heading parsing of standalone `=` lines) from corrupting equations before GitHub renders the LaTeX.
-
 ## 1. Covariance convention
 
 Each ellipse represents a real, symmetrized two-quadrature covariance matrix
