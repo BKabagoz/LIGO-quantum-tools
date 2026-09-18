@@ -1,0 +1,13 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Common local/IDE files
+.idea/
+.vscode/
+.spyproject/
+
+# Default figure exports
+fig4_loss_phase_noise.pdf
+fig4_loss_phase_noise.png
+fig4_loss_phase_noise.svg
