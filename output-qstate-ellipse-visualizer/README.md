@@ -4,6 +4,7 @@ Interactive PyQt/Matplotlib GUI for visualizing optical quadrature covariance el
 
 The input state can be vacuum, frequency-independent squeezing (FIS), or frequency-dependent squeezing (FDS). The interferometer stage is built with the quantum-noise matrices from the selected GWINC YAML model, including optomechanical response, SEC detuning, internal optical loss, and spatial mode mismatch.
 
+## Interface Preview 
 
 ![GUI screenshot](ui.png)
 
@@ -18,92 +19,6 @@ The input state can be vacuum, frequency-independent squeezing (FIS), or frequen
 - Configurable labels, fonts, legends, colors, and panel layout.
 - Export of the **exact currently visible figure panel**. Export does not recompute or reflow the figure.
 - Numerical mode-mismatch diagnostic against an otherwise identical zero-mismatch GWINC model.
-
-## Repository contents
-
-```text
-.
-├── README.md
-├── ifo_optical_quadratures.py
-├── requirements.txt
-├── ui.png
-└── .gitignore
-```
-
-Detector YAML files are intentionally kept one directory upstream and are not part of this repository.
-
-## Requirements
-
-The GUI uses:
-
-- Python 3.10+
-- NumPy
-- Matplotlib
-- PyYAML
-- PyQt5
-- Pillow
-- GWINC
-
-The script uses internal functions from `gwinc.noise.quantum`, including `shotrad_debug`, `MatsHelper`, `apply_interferometer`, the active optical matrix library, and its LO vectors. Because these APIs can change between GWINC versions, use a GWINC checkout compatible with the YAML/model that you use for the quantum-noise calculation.
-
-Install the ordinary Python dependencies with
-
-```bash
-pip install -r requirements.txt
-```
-
-and run the GUI from the environment in which your compatible GWINC installation is available.
-
-## Running
-
-You can provide a YAML from the command line:
-
-```bash
-python ifo_optical_quadratures.py --yaml ../your_model.yaml
-```
-
-or simply run
-
-```bash
-python ifo_optical_quadratures.py
-```
-
-and select the YAML from the file picker.
-
-The base YAML can also be changed while the GUI is open.
-
-
-A typical directory layout is:
-
-```text
-parent-directory/
-├── april9.yaml
-├── another_detector_model.yaml
-└── output-qstate-ellipse-visualizer/
-    ├── README.md
-    ├── ifo_optical_quadratures.py
-    ├── requirements.txt
-    ├── ui.png
-    └── .gitignore
-```
-
-For that layout, launch with for example:
-
-```bash
-python ifo_optical_quadratures.py --yaml ../april9.yaml
-```
-
-The YAML file picker can also select a model from any location. Keeping detector-specific YAML files upstream simply keeps them outside this public repository.
-
-### Parameter conventions
-
-- `Optics.SRM.Tunephase` / SEC detuning is interpreted in **radians**.
-- `Squeezer.SQZAngle` is read from the YAML in radians and converted internally for the GUI angle controls.
-- Filter-cavity detuning is in Hz.
-- Mode-matching phases are in radians.
-- The plotted covariance is vacuum normalized, so unsqueezed vacuum is the unit circle.
-
----
 
 # How the ellipses are computed
 
@@ -364,3 +279,91 @@ This means PDF/SVG exact-view exports prioritize visual identity over editable v
 The ellipses are covariance visualizations, not optical beam profiles. Their orientation and eccentricity show the quadrature covariance of the optical state at the chosen frequency in the vacuum-normalized convention used above.
 
 The input panel represents the state immediately before the interferometer stage used by this GUI. The output panel represents the GWINC-propagated state after projection back onto the detected fundamental spatial mode.
+
+
+## Repository contents
+
+```text
+.
+├── README.md
+├── ifo_optical_quadratures.py
+├── requirements.txt
+├── ui.png
+└── .gitignore
+```
+
+Detector YAML files are intentionally kept one directory upstream and are not part of this repository.
+
+## Requirements
+
+The GUI uses:
+
+- Python 3.10+
+- NumPy
+- Matplotlib
+- PyYAML
+- PyQt5
+- Pillow
+- GWINC
+
+The script uses internal functions from `gwinc.noise.quantum`, including `shotrad_debug`, `MatsHelper`, `apply_interferometer`, the active optical matrix library, and its LO vectors. Because these APIs can change between GWINC versions, use a GWINC checkout compatible with the YAML/model that you use for the quantum-noise calculation.
+
+Install the ordinary Python dependencies with
+
+```bash
+pip install -r requirements.txt
+```
+
+and run the GUI from the environment in which your compatible GWINC installation is available.
+
+## Running
+
+You can provide a YAML from the command line:
+
+```bash
+python ifo_optical_quadratures.py --yaml ../your_model.yaml
+```
+
+or simply run
+
+```bash
+python ifo_optical_quadratures.py
+```
+
+and select the YAML from the file picker.
+
+The base YAML can also be changed while the GUI is open.
+
+
+A typical directory layout is:
+
+```text
+parent-directory/
+├── april9.yaml
+├── another_detector_model.yaml
+└── output-qstate-ellipse-visualizer/
+    ├── README.md
+    ├── ifo_optical_quadratures.py
+    ├── requirements.txt
+    ├── ui.png
+    └── .gitignore
+```
+
+For that layout, launch with for example:
+
+```bash
+python ifo_optical_quadratures.py --yaml ../april9.yaml
+```
+
+The YAML file picker can also select a model from any location. Keeping detector-specific YAML files upstream simply keeps them outside this public repository.
+
+### Parameter conventions
+
+- `Optics.SRM.Tunephase` / SEC detuning is interpreted in **radians**.
+- `Squeezer.SQZAngle` is read from the YAML in radians and converted internally for the GUI angle controls.
+- Filter-cavity detuning is in Hz.
+- Mode-matching phases are in radians.
+- The plotted covariance is vacuum normalized, so unsqueezed vacuum is the unit circle.
+
+---
+
