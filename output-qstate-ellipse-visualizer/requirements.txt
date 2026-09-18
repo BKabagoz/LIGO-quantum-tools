@@ -1,0 +1,8 @@
+numpy>=1.23
+matplotlib>=3.7
+PyYAML>=6.0
+PyQt5>=5.15
+Pillow>=9.0
+
+# GWINC is also required, but this GUI uses internal gwinc.noise.quantum APIs.
+# Install/use the GWINC checkout compatible with your detector YAML/model.
