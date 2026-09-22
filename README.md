@@ -14,7 +14,7 @@ The tool compares vacuum, frequency-independent squeezing (FIS), and frequency-d
 
 This tool is intended to isolate the physics of squeezed-state preparation before the detector response is introduced.
 
-[![Example output from the squeezing ellipse visualizer](squeezing-ellipse-visualizer.png)](squeezing-ellipse-visualizer/README.md)
+[![Example output from the squeezing ellipse visualizer](squeezing-ellipse-visualizer.pdf)](squeezing-ellipse-visualizer/README.md)
 
 See [`squeezing-ellipse-visualizer/README.md`](squeezing-ellipse-visualizer/README.md) for the equations and assumptions used.
 
@@ -57,7 +57,7 @@ The decomposition implemented here was originally developed for:
 **B. Kabagöz et al., _Observing and Evading Quantum Back-Action on a Kilogram-Scale Oscillator_**  
 [arXiv:2609.19317](https://arxiv.org/abs/2609.19317)
 
-[![Example output from the quantum-noise decomposer](quantum-noise-decomposer.png)](quantum-noise-decomposer/README.md)
+[![Example output from the quantum-noise decomposer](qnoise-decomposition-visualizer.png)](quantum-noise-decomposer/README.md)
 
 See [`quantum-noise-decomposer/README.md`](quantum-noise-decomposer/README.md) for the decomposition equations, covariance construction, assumptions, and GWINC dependence.
 
