@@ -73,7 +73,7 @@ The decomposition implemented here was originally developed for:
 **B. Kabagöz et al., _Observing and Evading Quantum Back-Action on a Kilogram-Scale Oscillator_**  
 [arXiv:2609.19317](https://arxiv.org/abs/2609.19317)
 
-[![Example output from the quantum-noise decomposer](quantum-noise-decomposer.png)](quantum-noise-decomposer/README.md)
+[![Example output from the quantum-noise decomposer](qnoise-decomposition-visualizer.png)](quantum-noise-decomposer/README.md)
 
 See [`quantum-noise-decomposer/README.md`](quantum-noise-decomposer/README.md) for the decomposition equations, covariance construction, assumptions, and GWINC dependence.
 
