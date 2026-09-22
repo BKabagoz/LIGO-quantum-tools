@@ -2,7 +2,7 @@
 
 A collection of interactive visualization and figure-building tools developed while preparing the review article **_Quantum Noise Engineering in Advanced LIGO_**, currently in preparation for *Contemporary Physics*.
 
-Together, the tools follow squeezed-light quantum noise from state preparation, through interferometer propagation and quantum-noise decomposition, to practical implementation limits from optical loss and phase noise. Each tool lives in its own directory and has a dedicated README describing its equations, assumptions, controls, and dependencies.
+Together, the tools follow squeezed-light quantum noise from state preparation, through interferometer propagation, to practical implementation limits from optical loss and phase noise, and finally to decomposition into imprecision, back-action, and correlation contributions. Each tool lives in its own directory and has a dedicated README describing its equations, assumptions, controls, and dependencies.
 
 ## Tools
 
@@ -14,7 +14,7 @@ The tool compares vacuum, frequency-independent squeezing (FIS), and frequency-d
 
 This tool is intended to isolate the physics of squeezed-state preparation before the detector response is introduced.
 
-[![Example output from the squeezing ellipse visualizer](squeezing-ellipse-visualizer.pdf)](squeezing-ellipse-visualizer/README.md)
+[![Example output from the squeezing ellipse visualizer](squeezing-ellipse-visualizer.png)](squeezing-ellipse-visualizer/README.md)
 
 See [`squeezing-ellipse-visualizer/README.md`](squeezing-ellipse-visualizer/README.md) for the equations and assumptions used.
 
@@ -31,6 +31,22 @@ When spatial mode mismatch is active, the calculation uses GWINC's higher-order-
 [![Example output from the output quantum-state ellipse visualizer](output-qstate-ellipse-visualizer.png)](output-qstate-ellipse-visualizer/README.md)
 
 See [`output-qstate-ellipse-visualizer/README.md`](output-qstate-ellipse-visualizer/README.md) for the full model description.
+
+---
+
+### `loss-phase-noise-visualizer`
+
+Interactive GUI illustrating how optical loss and phase noise limit observed squeezing.
+
+The upper panels provide schematic quadrature-space views of vacuum admixture and readout-axis jitter. The lower panels calculate observed variance as a function of nonlinear gain for selectable optical losses and phase-noise levels.
+
+The model includes ideal OPO squeezing and anti-squeezing versus nonlinear gain, scalar optical loss modeled as vacuum admixture, Gaussian RMS phase noise, covariance-ellipse construction, independent layout and legend controls, and PDF/PNG/SVG export.
+
+This tool is deliberately compact and does not include interferometer propagation or filter-cavity dynamics.
+
+[![Example output from the loss and phase-noise visualizer](loss-phase-noise-visualizer.png)](loss-phase-noise-visualizer/README.md)
+
+See [`loss-phase-noise-visualizer/README.md`](loss-phase-noise-visualizer/README.md) for the equations and assumptions used.
 
 ---
 
@@ -57,25 +73,9 @@ The decomposition implemented here was originally developed for:
 **B. Kabagöz et al., _Observing and Evading Quantum Back-Action on a Kilogram-Scale Oscillator_**  
 [arXiv:2609.19317](https://arxiv.org/abs/2609.19317)
 
-[![Example output from the quantum-noise decomposer](qnoise-decomposition-visualizer.png)](quantum-noise-decomposer/README.md)
+[![Example output from the quantum-noise decomposer](quantum-noise-decomposer.png)](quantum-noise-decomposer/README.md)
 
 See [`quantum-noise-decomposer/README.md`](quantum-noise-decomposer/README.md) for the decomposition equations, covariance construction, assumptions, and GWINC dependence.
-
----
-
-### `loss-phase-noise-visualizer`
-
-Interactive GUI illustrating how optical loss and phase noise limit observed squeezing.
-
-The upper panels provide schematic quadrature-space views of vacuum admixture and readout-axis jitter. The lower panels calculate observed variance as a function of nonlinear gain for selectable optical losses and phase-noise levels.
-
-The model includes ideal OPO squeezing and anti-squeezing versus nonlinear gain, scalar optical loss modeled as vacuum admixture, Gaussian RMS phase noise, covariance-ellipse construction, independent layout and legend controls, and PDF/PNG/SVG export.
-
-This tool is deliberately compact and does not include interferometer propagation or filter-cavity dynamics.
-
-[![Example output from the loss and phase-noise visualizer](loss-phase-noise-visualizer.png)](loss-phase-noise-visualizer/README.md)
-
-See [`loss-phase-noise-visualizer/README.md`](loss-phase-noise-visualizer/README.md) for the equations and assumptions used.
 
 ## Manuscript context and disclaimer
 
@@ -96,8 +96,8 @@ LIGO-quantum-tools/
 ├── README.md
 ├── squeezing-ellipse-visualizer.png
 ├── output-qstate-ellipse-visualizer.png
-├── quantum-noise-decomposer.png
 ├── loss-phase-noise-visualizer.png
+├── quantum-noise-decomposer.png
 ├── squeezing-ellipse-visualizer/
 │   ├── README.md
 │   ├── squeezing_ellipse_visualizer.py
@@ -107,14 +107,14 @@ LIGO-quantum-tools/
 │   ├── ifo_optical_quadratures.py
 │   ├── requirements.txt
 │   └── ui.png
-├── quantum-noise-decomposer/
+├── loss-phase-noise-visualizer/
 │   ├── README.md
-│   ├── qnoise_decomposer.py
+│   ├── loss_phase_noise_gui.py
 │   ├── requirements.txt
 │   └── ui.png
-└── loss-phase-noise-visualizer/
+└── quantum-noise-decomposer/
     ├── README.md
-    ├── loss_phase_noise_gui.py
+    ├── qnoise_decomposer.py
     ├── requirements.txt
     └── ui.png
 ```
