@@ -1,0 +1,7 @@
+numpy>=1.23
+matplotlib>=3.7
+PyQt5>=5.15
+
+# GWINC is also required. This tool uses the Quantum budget and detector
+# structures from the installed GWINC checkout, so use a version compatible
+# with the YAML model you intend to load.
