@@ -29,6 +29,13 @@ The lower panels show covariance ellipses in an imprecision/back-action quadratu
 
 ## Quantum-noise decomposition
 
+The decomposition used in this tool was originally developed for:
+
+**B. Kabagöz et al., _Observing and Evading Quantum Back-Action on a Kilogram-Scale Oscillator_**  
+[arXiv:2609.19317](https://arxiv.org/abs/2609.19317)
+
+That work introduced the decomposition as a way to separate the modeled quantum-noise spectrum into imprecision, back-action, and correlation contributions.
+
 ### 1. Power-scaling model
 
 At each frequency, the quantum-noise power spectral density is modeled as
@@ -381,8 +388,13 @@ This deliberately bypasses `Figure.savefig()` so the export remains reliable eve
 └── .gitignore
 ```
 
-## Manuscript context
+## Research and manuscript context
 
-This tool was developed while preparing **_Quantum Noise Engineering in Advanced LIGO_**, a review article in preparation for *Contemporary Physics*.
+The quantum-noise decomposition implemented here was originally developed for the experimental work:
 
-It is intended as a companion visualization and figure-building tool for the discussion of quantum measurement imprecision, radiation-pressure back-action, and quantum-noise correlations in that manuscript.
+**B. Kabagöz et al., _Observing and Evading Quantum Back-Action on a Kilogram-Scale Oscillator_**  
+[arXiv:2609.19317](https://arxiv.org/abs/2609.19317)
+
+This interactive tool was subsequently developed while preparing **_Quantum Noise Engineering in Advanced LIGO_**, a review article in preparation for *Contemporary Physics*.
+
+It is intended as a companion visualization and figure-building tool for the review manuscript, particularly for the discussion of quantum measurement imprecision, radiation-pressure back-action, and quantum-noise correlations.
